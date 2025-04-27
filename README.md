@@ -1,0 +1,4 @@
+
+- 自定义ThreadFactory：DefaultThreadFactory
+- 基于LinkedTransferQueue实现自定义线程池：DefaultThreadPoolExecutor
+- 基于LinkedTransferQueue实现通用池：TransferQueueConnectionPool

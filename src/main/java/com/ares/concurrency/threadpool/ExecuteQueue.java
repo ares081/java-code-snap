@@ -1,9 +1,9 @@
 package com.ares.concurrency.threadpool;
 
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.RejectedExecutionException;
 
-public class ExecuteQueue extends LinkedBlockingQueue<Runnable> {
+public class ExecuteQueue extends LinkedTransferQueue<Runnable> {
 
   private DefaultThreadPoolExecutor executor;
 

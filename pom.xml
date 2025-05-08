@@ -16,18 +16,11 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <sl4j.version>2.0.17</sl4j.version>
     <logback.version>1.5.18</logback.version>
     <lombok.version>1.18.36</lombok.version>
-    <netty.version>4.1.119.Final</netty.version>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>${netty.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -48,6 +41,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>

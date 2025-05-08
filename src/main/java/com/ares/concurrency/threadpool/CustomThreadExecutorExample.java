@@ -8,15 +8,27 @@ public class CustomThreadExecutorExample {
   private static final Logger logger = LoggerFactory.getLogger(CustomThreadExecutorExample.class);
 
   public static void main(String[] args) {
+
     DefaultThreadPoolExecutor executor1 = new DefaultThreadPoolExecutor();
     DefaultThreadPoolExecutor executor2 = new DefaultThreadPoolExecutor();
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 1000; i++) {
       executor1.execute(() -> {
-        logger.info("task is running: {}", Thread.currentThread().getName());
+        logger.info("task1 is running: {}", Thread.currentThread().getName());
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
       });
+
       executor2.execute(() -> {
-        logger.info("task is running: {}", Thread.currentThread().getName());
+        logger.info("task2 is running: {}", Thread.currentThread().getName());
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
       });
     }
     executor1.shutdown();

@@ -36,7 +36,7 @@ public class CounterRateLimiter {
    * @return true表示允许请求，false表示拒绝请求
    */
   public boolean tryAcquire() {
-    long now = System.currentTimeMillis();
+    long now = Instant.now().toEpochMilli();
     long currentWindow = windowStart;
     long timer = now - currentWindow;
 

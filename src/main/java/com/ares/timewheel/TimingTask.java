@@ -6,7 +6,7 @@ public abstract class TimingTask implements Runnable {
 
   protected final Long delayMs;
 
-  TimingTask(Long delayMs) {
+  protected TimingTask(Long delayMs) {
     this.delayMs = delayMs;
   }
 

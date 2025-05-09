@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,8 @@ public class TaskExecutor implements Timer {
   private final ExecutorService taskExecutor;
   private final DelayQueue<TaskList> delayQueue;
   private final AtomicInteger taskCounter;
+
+  @Getter
   private final TimingWheel timingWheel;
 
   private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
@@ -27,6 +30,14 @@ public class TaskExecutor implements Timer {
 
   public TaskExecutor(String executeName) {
     this(executeName, 1, 20, Instant.now().toEpochMilli());
+  }
+
+  public TaskExecutor(String executeName, Integer wheelSize) {
+    this(executeName, 1, wheelSize, Instant.now().toEpochMilli());
+  }
+
+  public TaskExecutor(String executeName, Integer wheelSize, Long tickMs) {
+    this(executeName, tickMs, wheelSize, Instant.now().toEpochMilli());
   }
 
   public TaskExecutor(String executeName, long tickMs, int wheelSize, long startMs) {
@@ -61,6 +72,8 @@ public class TaskExecutor implements Timer {
       writeLock.lock();
       try {
         while (bucket != null) {
+          log.info("task delayMs:{}, currentMs:{}", bucket.getExpiration(),
+              Instant.now().toEpochMilli());
           timingWheel.advanceClock(bucket.getExpiration());
           bucket.flush(this::addTaskSlots);
           bucket = delayQueue.poll();

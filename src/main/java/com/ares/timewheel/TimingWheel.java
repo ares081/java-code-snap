@@ -2,6 +2,7 @@ package com.ares.timewheel;
 
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

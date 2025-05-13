@@ -1,5 +1,6 @@
 package com.ares.concurrency.threadpool;
 
+import com.ares.concurrency.DefaultThreadFactory;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -7,9 +8,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.ares.concurrency.DefaultThreadFactory;
-
 import lombok.Getter;
 
 public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
@@ -28,6 +26,10 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
 
   public DefaultThreadPoolExecutor() {
     this(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE);
+  }
+
+  public DefaultThreadPoolExecutor(String name) {
+    this(MAXIMUM_POOL_SIZE, MAXIMUM_POOL_SIZE);
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize) {

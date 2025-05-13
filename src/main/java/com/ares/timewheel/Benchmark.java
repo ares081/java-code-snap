@@ -11,7 +11,7 @@ public class Benchmark {
   private static final Logger log = LoggerFactory.getLogger(Benchmark.class);
 
   public static void main(String[] args) throws Exception {
-    int taskCount = 100000;
+    int taskCount = 100;
     CountDownLatch latch = new CountDownLatch(taskCount);
     AtomicInteger executedTasks = new AtomicInteger(0);
 

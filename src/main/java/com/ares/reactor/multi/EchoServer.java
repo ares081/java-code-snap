@@ -13,10 +13,10 @@ public class EchoServer {
 
   @SneakyThrows
   public static void main(String[] args) throws IOException {
-    ServerBootstrap bootstrap = new ServerBootstrap()
-        .port(8908)
-        .subReactorCount(1)
-        .channelHandler(EchoServerHandler::new);
+    ServerBootstrap bootstrap = new ServerBootstrap();
+    bootstrap.port(8908);
+    bootstrap.subReactorCount(1);
+    bootstrap.channelHandler(() -> new EchoServerHandler(1024, 10));
     bootstrap.start();
     log.info("Echo server started on port: {}", 8908);
   }

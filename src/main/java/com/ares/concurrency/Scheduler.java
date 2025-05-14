@@ -1,6 +1,7 @@
 package com.ares.concurrency;
 
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public interface Scheduler {
 
@@ -17,6 +18,10 @@ public interface Scheduler {
   }
 
   ScheduledFuture<?> schedule(String name, Runnable task, long delayMs, long periodMs);
+
+  ScheduledFuture<?> schedule(String name, Runnable task, long delayMs, long periodMs,
+      TimeUnit unit);
+
 
   void resizeThreadPool(int newSize);
 

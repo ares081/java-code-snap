@@ -38,11 +38,13 @@ public class BufferPool {
       } else {
         // 达到最大大小，只能等待
         while ((buffer = pool.poll()) == null) {
-          Thread.yield(); // 让出CPU
+          // 让出CPU
+          Thread.yield();
         }
       }
     }
-    buffer.clear(); // 确保缓冲区是干净的
+    // 确保缓冲区是干净的
+    buffer.clear();
     return buffer;
   }
 

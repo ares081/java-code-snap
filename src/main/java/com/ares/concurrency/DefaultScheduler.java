@@ -63,7 +63,25 @@ public class DefaultScheduler implements Scheduler {
   }
 
   @Override
-  public void shutdown() throws InterruptedException {
+  public ScheduledFuture<?> schedule(String name, Runnable task, long delayMs, long periodMs,
+      TimeUnit unit) {
+    synchronized (this) {
+      if (scheduledPool != null) {
+        Runnable runnable = task::run;
+        if (periodMs > 0) {
+          return scheduledPool.scheduleAtFixedRate(runnable, delayMs, periodMs, unit);
+        } else {
+          return scheduledPool.schedule(runnable, delayMs, unit);
+        }
+      } else {
+        log.info("scheduler is not running at the task '{}' scheduled. The task is ignored.", name);
+        return new NoOpScheduledFutureTask();
+      }
+    }
+  }
+
+  @Override
+  public void shutdown() {
     ScheduledThreadPoolExecutor maybeExecutor = null;
     synchronized (this) {
       if (scheduledPool != null) {

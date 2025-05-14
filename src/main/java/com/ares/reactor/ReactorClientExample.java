@@ -2,6 +2,7 @@ package com.ares.reactor;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class ReactorClientExample {
 
   private static final Logger log = LoggerFactory.getLogger(ReactorClientExample.class);
-
+  //StandardSocketOptions
   public static void main(String[] args) throws IOException, InterruptedException {
     try (SocketChannel socketChannel = SocketChannel.open()) {
       // Connect in blocking mode

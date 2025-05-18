@@ -9,14 +9,14 @@ public class CustomThreadExecutorExample {
 
   public static void main(String[] args) {
 
-    DefaultThreadPoolExecutor executor1 = new DefaultThreadPoolExecutor();
-    DefaultThreadPoolExecutor executor2 = new DefaultThreadPoolExecutor();
+    DefaultThreadPoolExecutor executor1 = new DefaultThreadPoolExecutor(10, 100);
+    DefaultThreadPoolExecutor executor2 = new DefaultThreadPoolExecutor(10, 20);
 
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 100; i++) {
       executor1.execute(() -> {
         logger.info("task1 is running: {}", Thread.currentThread().getName());
         try {
-          Thread.sleep(10);
+          Thread.sleep(100);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
         }
@@ -25,7 +25,7 @@ public class CustomThreadExecutorExample {
       executor2.execute(() -> {
         logger.info("task2 is running: {}", Thread.currentThread().getName());
         try {
-          Thread.sleep(10);
+          Thread.sleep(100);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
         }

@@ -39,17 +39,17 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
       BlockingQueue<Runnable> workQueue) {
     this(corePoolSize, maximumPoolSize, maximumPoolSize, KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS,
-        workQueue, new DefaultThreadFactory("custom-default-pool"));
+        workQueue, new DefaultThreadFactory("default-execute-pool"));
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
       ThreadFactory threadFactory) {
-    this(corePoolSize, maximumPoolSize, maximumPoolSize, new ExecuteQueue(), threadFactory);
+    this(corePoolSize, maximumPoolSize, maximumPoolSize, new WorkerQueue(), threadFactory);
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize, int queueCapacity) {
     this(corePoolSize, maximumPoolSize, queueCapacity, KEEP_ALIVE_TIME, TimeUnit.MILLISECONDS,
-        new ExecuteQueue());
+        new WorkerQueue());
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize, int queueCapacity,
@@ -61,7 +61,7 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize, int queueCapacity,
       long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
     this(corePoolSize, maximumPoolSize, queueCapacity, keepAliveTime, unit, workQueue,
-        new DefaultThreadFactory("custom-default-pool"));
+        new DefaultThreadFactory("default-execute-pool"));
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize, int queueCapacity,
@@ -75,14 +75,14 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
       long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,
       RejectedExecutionHandler handler) {
     this(corePoolSize, maximumPoolSize, queueCapacity, keepAliveTime, unit, workQueue,
-        new DefaultThreadFactory("custom-default-pool"), handler);
+        new DefaultThreadFactory("default-execute-pool"), handler);
   }
 
   public DefaultThreadPoolExecutor(int corePoolSize, int maximumPoolSize, int queueCapacity,
       long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,
       ThreadFactory threadFactory, RejectedExecutionHandler handler) {
     super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
-    ((ExecuteQueue) getQueue()).setExecutor(this);
+    ((WorkerQueue) getQueue()).setExecutor(this);
     this.maxTask = maximumPoolSize + queueCapacity;
   }
 
@@ -91,14 +91,16 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
     int count = submittedTasksCount.incrementAndGet();
     // 超过最大的并发任务限制，进行 reject
     // 依赖的LinkedTransferQueue没有长度限制，因此这里进行控制
+
     if (count > maxTask) {
       submittedTasksCount.decrementAndGet();
       getRejectedExecutionHandler().rejectedExecution(command, this);
     }
+
     try {
       super.execute(command);
     } catch (RejectedExecutionException rx) {
-      if (!((ExecuteQueue) getQueue()).force(command)) {
+      if (!((WorkerQueue) getQueue()).force(command)) {
         submittedTasksCount.decrementAndGet();
         getRejectedExecutionHandler().rejectedExecution(command, this);
       }

@@ -22,7 +22,6 @@ public class DefaultScheduler implements Scheduler {
 
   public DefaultScheduler(final int threads, String taskName) {
     this(threads, false, taskName);
-
   }
 
   public DefaultScheduler(final int threads, boolean daemon, String taskName) {
@@ -34,8 +33,8 @@ public class DefaultScheduler implements Scheduler {
   public void startup() {
     synchronized (this) {
       if (scheduledPool == null) {
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threads,
-            threadFactory);
+        ScheduledThreadPoolExecutor executor =
+            new ScheduledThreadPoolExecutor(threads, threadFactory);
         executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
         executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
         executor.setRemoveOnCancelPolicy(true);

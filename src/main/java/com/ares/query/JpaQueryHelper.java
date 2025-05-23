@@ -1,4 +1,4 @@
-package com.ares.jpa;
+package com.ares.query;
 
 import jakarta.persistence.criteria.Predicate;
 import java.util.Arrays;

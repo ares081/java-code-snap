@@ -6,5 +6,5 @@ public interface Timer extends AutoCloseable {
 
   void add(TimingTask timerTask);
 
-  boolean advanceClock(long timeoutMs) throws InterruptedException;
+  void advanceClock(long timeoutMs) throws InterruptedException;
 }

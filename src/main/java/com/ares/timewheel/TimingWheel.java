@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 
 public class TimingWheel {
 
-  private final Logger log = LoggerFactory.getLogger(TimingWheel.class);
-
   /**
    * 时间轮由多个时间格组成，每个时间格就是 tickMs，它代表当前时间轮的基本时间跨度
    */

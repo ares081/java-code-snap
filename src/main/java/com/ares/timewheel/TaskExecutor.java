@@ -66,7 +66,7 @@ public class TaskExecutor implements Timer {
   }
 
   @Override
-  public boolean advanceClock(long timeoutMs) throws InterruptedException {
+  public void advanceClock(long timeoutMs) throws InterruptedException {
     TaskList bucket = delayQueue.poll(timeoutMs, TimeUnit.MILLISECONDS);
     if (bucket != null) {
       writeLock.lock();
@@ -81,9 +81,7 @@ public class TaskExecutor implements Timer {
       } finally {
         writeLock.unlock();
       }
-      return true;
     } else {
-      return false;
     }
   }
 

@@ -1,5 +1,6 @@
 
 - 自定义ThreadFactory：DefaultThreadFactory
+  - 增加MDC透传
 - 基于LinkedTransferQueue实现自定义线程池：DefaultThreadPoolExecutor
 - 基于LinkedTransferQueue实现通用池：TransferQueueConnectionPool
 - 仿kafka时间轮实现

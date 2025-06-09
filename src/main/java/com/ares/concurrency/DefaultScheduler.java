@@ -44,7 +44,7 @@ public class DefaultScheduler implements Scheduler {
   }
 
   @Override
-  public ScheduledFuture<?> schedule(String name, Runnable task, long delayMs, long periodMs) {
+  public ScheduledFuture<?> schedule(Runnable task, long delayMs, long periodMs) {
     synchronized (this) {
       if (scheduledPool != null) {
         Runnable runnable = task::run;
@@ -55,14 +55,14 @@ public class DefaultScheduler implements Scheduler {
           return scheduledPool.schedule(runnable, delayMs, TimeUnit.MILLISECONDS);
         }
       } else {
-        log.info("scheduler is not running at the task '{}' scheduled. The task is ignored.", name);
+        log.info("scheduler is not running at the task scheduled. The task is ignored.");
         return new NoOpScheduledFutureTask();
       }
     }
   }
 
   @Override
-  public ScheduledFuture<?> schedule(String name, Runnable task, long delayMs, long periodMs,
+  public ScheduledFuture<?> schedule(Runnable task, long delayMs, long periodMs,
       TimeUnit unit) {
     synchronized (this) {
       if (scheduledPool != null) {
@@ -73,7 +73,7 @@ public class DefaultScheduler implements Scheduler {
           return scheduledPool.schedule(runnable, delayMs, unit);
         }
       } else {
-        log.info("scheduler is not running at the task '{}' scheduled. The task is ignored.", name);
+        log.info("scheduler is not running at the task scheduled. The task is ignored.");
         return new NoOpScheduledFutureTask();
       }
     }

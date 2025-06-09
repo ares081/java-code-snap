@@ -1,9 +1,12 @@
 package com.ares.concurrency;
 
+import com.ares.concurrency.mdc.ThreadWrapper;
+import jakarta.annotation.Nonnull;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DefaultThreadFactory implements ThreadFactory {
+
   private static final AtomicInteger poolId = new AtomicInteger(0);
   private final AtomicInteger threadId = new AtomicInteger(0);
 
@@ -32,8 +35,9 @@ public class DefaultThreadFactory implements ThreadFactory {
   }
 
   @Override
-  public Thread newThread(Runnable runnable) {
-    Thread thread = new Thread(group, runnable, prefix + threadId.incrementAndGet(), 0);
+  public Thread newThread(@Nonnull Runnable runnable) {
+    Thread thread = new Thread(group, ThreadWrapper.runnable(runnable),
+        prefix + threadId.incrementAndGet(), 0);
     if (thread.isDaemon() != daemon) {
       thread.setDaemon(daemon);
     }

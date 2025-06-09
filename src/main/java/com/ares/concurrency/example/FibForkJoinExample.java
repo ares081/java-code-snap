@@ -1,4 +1,4 @@
-package com.ares.concurrency;
+package com.ares.concurrency.example;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;

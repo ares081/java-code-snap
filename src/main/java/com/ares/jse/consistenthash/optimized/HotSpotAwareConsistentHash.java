@@ -67,9 +67,9 @@ public class HotSpotAwareConsistentHash<T extends LoadAwareNode> {
     this.loadImbalanceThreshold = loadImbalanceThreshold;
 
     if (enableAutoBalance) {
-      scheduler.schedule("10s-schedule", this::processHotKeys, 10, 10, TimeUnit.SECONDS);
-      scheduler.schedule("30s-schedule", this::rebalanceNodes, 30, 30, TimeUnit.SECONDS);
-      scheduler.schedule("60s-schedule", this::decayNodeLoads, 60, 60, TimeUnit.SECONDS);
+      scheduler.schedule(this::processHotKeys, 10, 10, TimeUnit.SECONDS);
+      scheduler.schedule(this::rebalanceNodes, 30, 30, TimeUnit.SECONDS);
+      scheduler.schedule(this::decayNodeLoads, 60, 60, TimeUnit.SECONDS);
     }
   }
 

@@ -3,10 +3,11 @@
   <!-- 定义日志文件的存储地址 -->
   <property name="PROJECT_NAME" value="java-code-snap"/>
   <property name="LOG_HOME" value="/var/logs/java/${PROJECT_NAME}"/>
-  <property name="LOG_FORMAT" value="[%X{traceId}] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+  <property name="LOG_FORMAT"
+    value="[%X{traceId}] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
 
   <!-- 控制台输出 -->
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+  <appender scop="context" name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>${LOG_FORMAT}</pattern>
       <charset>UTF-8</charset>

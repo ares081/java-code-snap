@@ -1,6 +1,7 @@
 package com.ares.concurrency.threadpool;
 
 import com.ares.concurrency.DefaultThreadFactory;
+import jakarta.annotation.Nonnull;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -87,11 +88,10 @@ public class DefaultThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   @Override
-  public void execute(Runnable command) {
+  public void execute(@Nonnull Runnable command) {
     int count = submittedTasksCount.incrementAndGet();
     // 超过最大的并发任务限制，进行 reject
     // 依赖的LinkedTransferQueue没有长度限制，因此这里进行控制
-
     if (count > maxTask) {
       submittedTasksCount.decrementAndGet();
       getRejectedExecutionHandler().rejectedExecution(command, this);

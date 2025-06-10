@@ -1,4 +1,4 @@
-package com.ares.jse.consistenthash.optimized;
+package com.ares.consistenthash.optimized;
 
 public interface LoadAwareNode {
 

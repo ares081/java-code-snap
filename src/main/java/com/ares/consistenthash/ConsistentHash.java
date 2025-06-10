@@ -1,4 +1,4 @@
-package com.ares.jse.consistenthash;
+package com.ares.consistenthash;
 
 import java.util.ArrayList;
 import java.util.Collection;

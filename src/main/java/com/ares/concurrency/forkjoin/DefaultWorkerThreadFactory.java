@@ -5,6 +5,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory;
 import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import org.slf4j.MDC;
 
 public class DefaultWorkerThreadFactory implements ForkJoinWorkerThreadFactory {
@@ -16,7 +17,7 @@ public class DefaultWorkerThreadFactory implements ForkJoinWorkerThreadFactory {
   protected final Map<String, String> inheritedMdc;
 
   public DefaultWorkerThreadFactory(String namePrefix) {
-    this.namePrefix = namePrefix + "-" + poolNumber.getAndIncrement() + "-thread-";
+    this.namePrefix = namePrefix + "-" + poolNumber.getAndIncrement() + "-worker-";
     this.inheritedMdc = MDC.getCopyOfContextMap();
   }
 

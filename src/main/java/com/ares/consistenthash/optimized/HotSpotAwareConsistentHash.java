@@ -1,7 +1,7 @@
-package com.ares.jse.consistenthash.optimized;
+package com.ares.consistenthash.optimized;
 
 import com.ares.concurrency.DefaultScheduler;
-import com.ares.jse.consistenthash.HashFunction;
+import com.ares.consistenthash.HashFunction;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;

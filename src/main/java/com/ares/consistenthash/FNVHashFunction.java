@@ -1,4 +1,4 @@
-package com.ares.jse.consistenthash;
+package com.ares.consistenthash;
 
 /**
  * Implementation of FNV-1a (Fowler-Noll-Vo) hash function This is a simple but effective

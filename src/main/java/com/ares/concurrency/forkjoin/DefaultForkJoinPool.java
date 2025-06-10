@@ -1,17 +1,16 @@
 package com.ares.concurrency.forkjoin;
 
-import com.ares.concurrency.mdc.ThreadWrapper;
-import jakarta.annotation.Nonnull;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.ares.concurrency.mdc.ThreadWrapper;
+
+import jakarta.annotation.Nonnull;
 
 public class DefaultForkJoinPool extends ForkJoinPool {
 
-  private static final Logger logger = LoggerFactory.getLogger(DefaultForkJoinPool.class);
   private static final int DEFAULT_PARALLELISM = Runtime.getRuntime().availableProcessors();
 
   public DefaultForkJoinPool() {
@@ -57,6 +56,7 @@ public class DefaultForkJoinPool extends ForkJoinPool {
   public <T> ForkJoinTask<T> submit(Runnable task, T result) {
     return super.submit(ThreadWrapper.runnable(task), result);
   }
+
   @Nonnull
   @Override
   public ForkJoinTask<?> submit(Runnable task) {

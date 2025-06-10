@@ -1,7 +1,7 @@
-package com.ares.jse.consistenthash.optimized;
+package com.ares.consistenthash.optimized;
 
-import com.ares.jse.consistenthash.HashFunction;
-import com.ares.jse.consistenthash.MurmurHashFunction;
+import com.ares.consistenthash.HashFunction;
+import com.ares.consistenthash.MurmurHashFunction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package com.ares.jse.consistenthash.optimized;
+package com.ares.consistenthash.optimized;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;

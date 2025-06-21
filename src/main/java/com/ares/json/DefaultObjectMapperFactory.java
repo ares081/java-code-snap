@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class DefaultObjectMapperFactory {
 

@@ -27,5 +27,4 @@ public class SubThreadGroup {
     SubReactor subReactor = children.get(idx);
     subReactor.registerChannel(channel, SelectionKey.OP_READ, handler);
   }
-
 }

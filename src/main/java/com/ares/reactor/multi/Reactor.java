@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class Reactor implements Runnable {
 
-  private final Logger log = LoggerFactory.getLogger(Reactor.class);
+  private final Logger logger = LoggerFactory.getLogger(Reactor.class);
 
   protected final Selector selector;
 
@@ -29,24 +29,25 @@ public abstract class Reactor implements Runnable {
         Iterator<SelectionKey> iterator = keys.iterator();
         while (iterator.hasNext()) {
           SelectionKey selectionKey = iterator.next();
-          iterator.remove(); // 必须先移除，避免重复处理
+          // 必须先移除，避免重复处理
+          iterator.remove();
           if (!selectionKey.isValid()) {
             continue;
           }
           try {
             dispatch(selectionKey);
           } catch (IOException e) {
-            log.error("Error handling key: " + selectionKey, e);
+            logger.error("Error handling key: " + selectionKey, e);
             selectionKey.cancel();
             try {
               selectionKey.channel().close();
             } catch (IOException ex) {
-              log.error("Error closing channel", ex);
+              logger.error("Error closing channel", ex);
             }
           }
         }
       } catch (Exception e) {
-        log.error("selector error", e);
+        logger.error("selector error", e);
       }
     }
   }

@@ -277,4 +277,5 @@ public class JpaQueryHelper {
   public static <T> Specification<T> isNotNull(String attribute) {
     return specPredicate(builder -> builder.isNotNull(attribute));
   }
+
 }

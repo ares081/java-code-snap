@@ -12,7 +12,7 @@ import com.ares.reactor.ChannelHandler;
 
 public class ServerBootstrap {
 
-  private final Logger log = LoggerFactory.getLogger(ServerBootstrap.class);
+  private final Logger logger = LoggerFactory.getLogger(ServerBootstrap.class);
 
   private int port = 8080;
   private int coreThread = Runtime.getRuntime().availableProcessors();
@@ -37,6 +37,7 @@ public class ServerBootstrap {
     if (handler == null) {
       throw new IllegalStateException("ChannelHandler supplier is not set");
     }
+
     ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
     serverSocketChannel.bind(new InetSocketAddress(port));
 

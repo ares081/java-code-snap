@@ -1,5 +1,6 @@
 package com.ares.concurrency.threadpool;
 
+import jakarta.annotation.Nonnull;
 import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.RejectedExecutionException;
 
@@ -21,7 +22,7 @@ public class WorkerQueue extends LinkedTransferQueue<Runnable> {
 
   // 仿tomcat TaskQueue
   @Override
-  public boolean offer(Runnable runnable) {
+  public boolean offer(@Nonnull Runnable runnable) {
     int poolSize = executor.getPoolSize();
 
     // 当线程数达到最大线程数时，新提交任务入队

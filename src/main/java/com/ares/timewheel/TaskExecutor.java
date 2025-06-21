@@ -81,7 +81,6 @@ public class TaskExecutor implements Timer {
       } finally {
         writeLock.unlock();
       }
-    } else {
     }
   }
 

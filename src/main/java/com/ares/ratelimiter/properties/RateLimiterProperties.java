@@ -1,5 +1,6 @@
 package com.ares.ratelimiter.properties;
 
+import com.ares.ratelimiter.RateLimiterType;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class RateLimiterProperties {
   /**
    * 默认限流类型: GUAVA, REDIS, RESILIENCE4J, SLIDING_WINDOW
    */
-  private String defaultType = "GUAVA";
+  private String defaultType = RateLimiterType.GUAVA.name();
   /**
    * 默认每个时间窗口允许的请求数
    */

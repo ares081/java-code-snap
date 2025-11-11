@@ -1,0 +1,6 @@
+akk:
+  curator:
+    lock:
+      name: /order_sale
+      enabled: true
+    namespace: akk-mall

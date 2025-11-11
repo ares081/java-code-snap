@@ -18,7 +18,7 @@ public class DefaultForkJoinPool extends ForkJoinPool {
   }
 
   public DefaultForkJoinPool(int nThreads) {
-    this(nThreads, new DefaultWorkerThreadFactory("default-forkjoin-pool"));
+    this(nThreads, new CustomWorkerThreadFactory("default-forkjoin-pool"));
   }
 
   public DefaultForkJoinPool(int nThreads, ForkJoinWorkerThreadFactory factory) {

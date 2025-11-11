@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class DefaultObjectMapperFactory {
 
   public static ObjectMapper createStandardObjectMapper() {
-    //todo 单例
     ObjectMapper mapper = new ObjectMapper();
     // 基本配置
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

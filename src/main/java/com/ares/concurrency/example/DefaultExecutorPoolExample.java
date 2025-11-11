@@ -18,6 +18,7 @@ public class DefaultExecutorPoolExample {
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     MDC.put("traceId", String.valueOf(Instant.now().toEpochMilli()));
+
     ExecutorService executorService = new ThreadPoolExecutor(10, 10, 3, TimeUnit.SECONDS,
         new ArrayBlockingQueue<>(65535), new DefaultThreadFactory("test"));
 

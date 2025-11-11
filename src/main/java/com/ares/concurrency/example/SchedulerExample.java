@@ -20,6 +20,7 @@ public class SchedulerExample {
     // 原生schedule
     ScheduledExecutorService scheduleService = new ScheduledThreadPoolExecutor(1,
         new DefaultThreadFactory("test"));
+
     MDC.put("traceId", String.valueOf(Instant.now().toEpochMilli()));
     log.info("test schedule task, thread name:{}.....................................",
         Thread.currentThread().getName());

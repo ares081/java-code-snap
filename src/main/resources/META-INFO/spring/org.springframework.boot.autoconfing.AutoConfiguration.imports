@@ -1,0 +1,2 @@
+com.ares.distribute.zookeeper.CuratorAutoConfiguration
+com.ares.distribute.zookeeper.CuratorLockAutoConfiguration

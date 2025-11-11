@@ -29,5 +29,4 @@ public class NamedThreadLocal<T> extends ThreadLocal<T> {
       return this.supplier.get();
     }
   }
-
 }

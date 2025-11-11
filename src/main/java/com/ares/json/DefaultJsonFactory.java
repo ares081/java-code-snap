@@ -9,12 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DefaultJsonFactory extends JsonFactory {
 
-  private final Logger logger = LoggerFactory.getLogger(DefaultJsonFactory.class);
   // 自定义配置标志
   private final String customPrefix;
 

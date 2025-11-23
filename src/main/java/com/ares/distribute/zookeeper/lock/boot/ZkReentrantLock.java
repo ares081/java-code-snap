@@ -1,6 +1,5 @@
-package com.ares.distribute.zookeeper;
+package com.ares.distribute.zookeeper.lock.boot;
 
-import com.ares.distribute.DistributeLock;
 import java.util.concurrent.TimeUnit;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.slf4j.Logger;
@@ -8,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ZkReentrantLock implements DistributeLock {
+public class ZkReentrantLock  {
 
   private final static Logger logger = LoggerFactory.getLogger(ZkReentrantLock.class);
   private final InterProcessMutex lock;
@@ -17,7 +16,7 @@ public class ZkReentrantLock implements DistributeLock {
     this.lock = lock;
   }
 
-  @Override
+  //@Override
   public boolean tryLock(long timeout, TimeUnit unit) throws Exception {
     boolean acquired = false;
     try {

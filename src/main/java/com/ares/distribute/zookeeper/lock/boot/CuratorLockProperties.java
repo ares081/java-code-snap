@@ -1,4 +1,4 @@
-package com.ares.distribute.zookeeper;
+package com.ares.distribute.zookeeper.lock.boot;
 
 import lombok.Getter;
 import lombok.Setter;

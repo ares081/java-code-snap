@@ -6,7 +6,7 @@ public class TaskEvent<T> {
 
   private long taskId;
   private T payload;
-  private AtomicBoolean processed = new AtomicBoolean(false);
+  private final AtomicBoolean processed = new AtomicBoolean(false);
 
   public TaskEvent() {
   }

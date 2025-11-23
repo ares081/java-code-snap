@@ -100,38 +100,45 @@ public class TransferQueuePool<T> implements AutoCloseable {
     if (closed.get()) {
       throw new IllegalStateException("pool is closed!!!");
     }
-
-    PooledWrapper<T> wrapper = pool.poll();
-    if (wrapper != null) {
-      if (factory.validate(wrapper.getResource())) {
-        idle.decrementAndGet();
-        return wrapper.getResource();
-      } else {
-        factory.destroy(wrapper.getResource());
-        total.decrementAndGet();
+    long deadline = System.nanoTime() + unit.toNanos(timeout);
+    while (true) {
+      long remainingNanos = deadline - System.nanoTime();
+      if (remainingNanos <= 0) {
+        throw new TimeoutException("Timeout waiting for object from pool.");
       }
-    }
-    // 队列为空，检查是否可以创建新对象
-    if (total.get() < properties.getMaximumPoolSize()) {
-      synchronized (pool) {
-        if (total.get() < properties.getMaximumPoolSize()) {
-          createPoolWrapper();
-          wrapper = pool.poll();
-          if (wrapper != null) {
-            idle.decrementAndGet();
-            return wrapper.getResource();
+
+      PooledWrapper<T> wrapper = pool.poll();
+      if (wrapper != null) {
+        if (factory.validate(wrapper.getResource())) {
+          idle.decrementAndGet();
+          return wrapper.getResource();
+        } else {
+          factory.destroy(wrapper.getResource());
+          total.decrementAndGet();
+        }
+      }
+      // 队列为空，检查是否可以创建新对象
+      if (total.get() < properties.getMaximumPoolSize()) {
+        synchronized (pool) {
+          if (total.get() < properties.getMaximumPoolSize()) {
+            createPoolWrapper();
+            wrapper = pool.poll();
+            if (wrapper != null) {
+              idle.decrementAndGet();
+              return wrapper.getResource();
+            }
           }
         }
       }
-    }
 
-    // 队列已满，必须阻塞等待
-    wrapper = pool.poll(timeout, unit);
-    if (wrapper != null) {
-      idle.decrementAndGet();
-      return wrapper.getResource();
+      // 队列已满，必须阻塞等待
+      wrapper = pool.poll(timeout, unit);
+      if (wrapper != null) {
+        idle.decrementAndGet();
+        return wrapper.getResource();
+      }
+      throw new TimeoutException("resource acquisition timed out");
     }
-    throw new TimeoutException("resource acquisition timed out");
   }
 
   public void release(T resource) {
@@ -141,8 +148,8 @@ public class TransferQueuePool<T> implements AutoCloseable {
     }
 
     if (!closed.get() && factory.validate(resource)) {
-      PooledWrapper<T> wrapper = pool.poll();
-      if (wrapper != null) {
+      PooledWrapper<T> wrapper = new PooledWrapper<>(resource);
+      if (!pool.tryTransfer(wrapper)) {
         pool.offer(wrapper);
         idle.incrementAndGet();
       }
@@ -157,7 +164,6 @@ public class TransferQueuePool<T> implements AutoCloseable {
   public void close() throws Exception {
     logger.info("starting close pool..........................");
     if (closed.compareAndSet(false, true)) {
-      logger.info("scheduler closing");
       scheduler.shutdown();
       try {
         // 如果等待超时则强制关闭

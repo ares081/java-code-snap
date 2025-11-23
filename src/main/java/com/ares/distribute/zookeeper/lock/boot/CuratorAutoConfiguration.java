@@ -1,4 +1,4 @@
-package com.ares.distribute.zookeeper;
+package com.ares.distribute.zookeeper.lock.boot;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -23,8 +23,10 @@ public class CuratorAutoConfiguration {
     ExponentialBackoffRetry retryPolicy = new ExponentialBackoffRetry(props.getBaseSleepTimeMs(),
         props.getMaxRetries());
 
-    CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder()
-        .connectString(props.getAddress()).retryPolicy(retryPolicy)
+    CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory
+        .builder()
+        .connectString(props.getAddress())
+        .retryPolicy(retryPolicy)
         .connectionTimeoutMs(props.getConnectionTimeoutMs())
         .sessionTimeoutMs(props.getSessionTimeoutMs());
 

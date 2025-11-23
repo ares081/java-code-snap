@@ -1,4 +1,4 @@
-package com.ares.distribute.zookeeper;
+package com.ares.distribute.zookeeper.lock.boot;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;

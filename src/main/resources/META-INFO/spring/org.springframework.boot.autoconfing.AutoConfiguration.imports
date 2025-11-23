@@ -1,2 +1,2 @@
-com.ares.distribute.zookeeper.CuratorAutoConfiguration
-com.ares.distribute.zookeeper.CuratorLockAutoConfiguration
+com.ares.distribute.locks.boot.CuratorAutoConfiguration
+com.ares.distribute.locks.boot.CuratorLockAutoConfiguration

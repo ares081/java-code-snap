@@ -36,7 +36,7 @@ public class LeaderService extends LeaderSelectorListenerAdapter implements Auto
    * Run a write operation only if current instance is leader. Caller should handle exception.
    */
   public <T> T runIfLeader(Supplier<T> writeAction) {
-    if (!isLeader()) {
+    if (!checkLeader()) {
       throw new IllegalStateException("Not leader. Writes must be performed by leader.");
     }
     return writeAction.get();
@@ -46,7 +46,7 @@ public class LeaderService extends LeaderSelectorListenerAdapter implements Auto
     selector.start();
   }
 
-  public boolean isLeader() {
+  public boolean checkLeader() {
     return isLeader.get();
   }
 

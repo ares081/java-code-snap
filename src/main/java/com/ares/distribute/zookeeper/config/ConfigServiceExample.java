@@ -39,7 +39,7 @@ public class ConfigServiceExample {
       try {
         if (cmd.equalsIgnoreCase("put")) {
           // put release key value
-          if (!leader.isLeader()) {
+          if (leader.checkLeader()) {
             System.out.println("not leader, cannot put");
             continue;
           }
@@ -66,7 +66,7 @@ public class ConfigServiceExample {
           config.createGrayRelease(app, env, grayId, kv, instanceId);
           System.out.println("gray created");
         } else if (cmd.equalsIgnoreCase("confirm-gray")) {
-          if (!leader.isLeader()) {
+          if (leader.checkLeader()) {
             System.out.println("not leader, cannot confirm");
             continue;
           }
@@ -81,7 +81,7 @@ public class ConfigServiceExample {
           });
           System.out.println("confirmed releaseId=" + releaseId);
         } else if (cmd.equalsIgnoreCase("rollback")) {
-          if (!leader.isLeader()) {
+          if (leader.checkLeader()) {
             System.out.println("not leader, cannot rollback");
             continue;
           }

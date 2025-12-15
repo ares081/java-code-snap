@@ -97,7 +97,7 @@ public class ConfigService implements AutoCloseable {
           .forPath(snapshotPath, snapshotBytes);
       ops.add(opCreateSnapshot);
 
-      ensurePathExists(String.format("%s/%s/%s", configRootPath, app, env));
+      //ensurePathExists(String.format("%s/%s/%s", configRootPath, app, env));
       try {
         client.checkExists().forPath(targetPath);
         CuratorOp setOp = client.transactionOp().setData().forPath(targetPath, newBytes);
@@ -291,4 +291,5 @@ public class ConfigService implements AutoCloseable {
       // ignore
     }
   }
+
 }
